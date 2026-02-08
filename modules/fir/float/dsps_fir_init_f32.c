@@ -14,6 +14,7 @@
 
 #include "dsps_fir.h"
 #include "malloc.h"
+#include <stdint.h>
 
 
 esp_err_t dsps_fir_init_f32(fir_f32_t *fir, float *coeffs, float *delay, int coeffs_len)
@@ -42,11 +43,11 @@ esp_err_t dsps_fir_init_f32(fir_f32_t *fir, float *coeffs, float *delay, int coe
         return ESP_ERR_DSP_INVALID_LENGTH;
     }
     // The coeffs array should be aligned to 16
-    if (((uint32_t)coeffs) & 0x0f) {
+    if (((uintptr_t)coeffs) & 0x0f) {
         return ESP_ERR_DSP_ARRAY_NOT_ALIGNED;
     }
     // The delay array should be aligned to 16
-    if (((uint32_t)delay) & 0x0f) {
+    if (((uintptr_t)delay) & 0x0f) {
         return ESP_ERR_DSP_ARRAY_NOT_ALIGNED;
     }
 #endif // CONFIG_IDF_TARGET_ESP32S3

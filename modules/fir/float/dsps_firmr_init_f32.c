@@ -8,6 +8,7 @@
 #include "dsp_common.h"
 #include <malloc.h>
 #include "dsp_tests.h"
+#include <stdint.h>
 
 esp_err_t dsps_firmr_init_f32(fir_f32_t *fir, float *coeffs, float *delay, int length, int interp, int decim, int start_pos)
 {
@@ -48,7 +49,7 @@ esp_err_t dsps_firmr_init_f32(fir_f32_t *fir, float *coeffs, float *delay, int l
 
 #ifdef CONFIG_IDF_TARGET_ESP32S3
     // The delay array should be aligned to 16
-    if (((uint32_t)delay) & 0x0f) {
+    if (((uintptr_t)delay) & 0x0f) {
         return ESP_ERR_DSP_ARRAY_NOT_ALIGNED;
     }
 #endif // CONFIG_IDF_TARGET_ESP32S3
