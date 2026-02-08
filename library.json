@@ -4,6 +4,7 @@
   "platforms": ["native", "espressif32"],
   "build": {
     "srcDir": "modules",
+    "srcFilter": "+<**/*.c> -<**/test/**> -<**/tests/**> -<**/*.S> -<**/*.s>"
     "includeDir": ".",
     "extraScript": "pio_extra.py"
   }
