@@ -4,7 +4,20 @@
   "platforms": ["native", "espressif32"],
   "build": {
     "srcDir": "modules",
-    "srcFilter": "+<**/*.c> -<**/test/**> -<**/tests/**> -<**/*.S> -<**/*.s>",
+    "srcFilter": [
+      "+<common/**/*.c>",
+      "+<**/*_ansi.c>",
+      "-<common/misc/**>",
+      "-<**/test/**>",
+      "-<**/tests/**>",
+      "-<examples/**>",
+      "-<**/*.S>",
+      "-<**/*.s>",
+      "-<**/*_ae32*>",
+      "-<**/*_aes3*>",
+      "-<**/*_p4*>",
+      "-<**/*_rv*>"
+    ],
     "includeDir": ".",
     "extraScript": "pio_extra.py"
   }
