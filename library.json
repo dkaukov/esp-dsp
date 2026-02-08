@@ -1,0 +1,10 @@
+{
+  "name": "esp-dsp",
+  "version": "0.0.0",
+  "platforms": ["native", "espressif32"],
+  "build": {
+    "srcDir": "modules",
+    "includeDir": ".",
+    "extraScript": "pio_extra.py"
+  }
+}
