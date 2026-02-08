@@ -10,13 +10,25 @@ for root, dirs, files in os.walk("modules"):
 is_native = env.get("PIOPLATFORM") == "native"
 
 if is_native:
-    # Build only portable ANSI C implementations on host
+    # Native host build: ANSI C plus required init/common C sources.
     env.Replace(SRC_FILTER=[
         "+<common/**/*.c>",
         "+<**/*_ansi.c>",
+        "+<**/*_init_*.c>",
+        "+<**/*_gen.c>",
+        "+<**/*_init.c>",
+        "-<common/misc/**>",
+        "-<**/test/**>",
+        "-<**/tests/**>",
+        "-<test/**>",
+        "-<examples/**>",
+        "-<applications/**>",
+        "-<test_app/**>",
         "-<**/*.S>", "-<**/*.s>",
-        "-<**/*_ae32*>", "-<**/*_aes3*>", "-<**/*_rv*>"
+        "-<**/*_ae32*>", "-<**/*_aes3*>", "-<**/*_arp4*>", "-<**/*_p4*>", "-<**/*_rv*>"
     ])
+    env.Append(CPPPATH=[realpath("native_shims")])
+    env.Append(CPPDEFINES=["ESP_DSP_PLATFORMIO_NATIVE"])
     env.Append(LIBS=["m"])  # libm for sin/cos/etc
 else:
     # Start simple on ESP32; you may need to tune this to avoid duplicate symbols
